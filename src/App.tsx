@@ -1,30 +1,24 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/control-has-associated-label */
+
 import React, { useEffect, useRef, useState } from 'react';
 import { UserWarning } from './UserWarning';
 import * as todoService from './api/todos';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
-import { ErrorNotif } from './components/ErrorNotif/ErrorNotif';
 import { Todo } from './types/Todo';
 import { TodoList } from './components/TodoList/TodoList';
-
-export type TodosError =
-  | 'Unable to load todos'
-  | 'Title should not be empty'
-  | 'Unable to add a todo'
-  | 'Unable to delete a todo'
-  | 'Unable to update a todo'
-  | null;
-
-export type Filter = 'all' | 'active' | 'completed';
+import { TodoStatus } from './types/TodoStatus';
+// eslint-disable-next-line max-len
+import { ErrorNotification } from './components/ErrorNotification/ErrorNotification';
+import { TodoFilter } from './types/TodoFilter';
 
 export const App: React.FC = () => {
   // #region States
   const [todos, setTodos] = useState<Todo[]>([]);
   const [isEdited, setIsEdited] = useState(0);
-  const [error, setErrorMessage] = useState<TodosError>(null);
-  const [filter, setFilter] = useState<Filter>('all');
+  const [error, setErrorMessage] = useState<TodoStatus>(null);
+  const [filter, setFilter] = useState<TodoFilter>('all');
   const [loadingIds, setLoadingIds] = useState<number[]>([]);
   const [title, setTitle] = useState('');
   const [isCreating, setIsCreating] = useState(false);
@@ -300,7 +294,7 @@ export const App: React.FC = () => {
 
       {/* DON'T use conditional rendering to hide the notification */}
       {/* Add the 'hidden' class to hide the message smoothly */}
-      <ErrorNotif onErrorMessage={setErrorMessage} error={error} />
+      <ErrorNotification onErrorMessage={setErrorMessage} error={error} />
     </div>
   );
 };
