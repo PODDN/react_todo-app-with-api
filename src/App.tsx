@@ -284,12 +284,14 @@ export const App: React.FC = () => {
         />
 
         {/* Hide the footer if there are no todos */}
-        <Footer
-          todos={todos}
-          filter={filter}
-          onFilter={setFilter}
-          onClearCompleted={handleClearCompleted}
-        />
+        {todos.length > 0 && (
+          <Footer
+            todos={todos}
+            filter={filter}
+            onFilter={setFilter}
+            onClearCompleted={handleClearCompleted}
+          />
+        )}
       </div>
 
       {/* DON'T use conditional rendering to hide the notification */}
